@@ -27,3 +27,17 @@ h1 {
 .west {
     flex: 1;
 }
+
+.years button {
+    cursor: pointer;
+}
+
+.years button:hover {
+    background-color: yellow;
+    color: black;
+}
+
+.years button.active {
+    background-color: yellow;
+    color: black;
+}
