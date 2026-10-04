@@ -41,3 +41,37 @@ h1 {
     background-color: yellow;
     color: black;
 }
+
+.coast-selection {
+    display: flex;
+    gap: 40px;
+}
+
+.coast-card {
+    border: 2px solid white;
+    padding: 30px;
+    width: 180px;
+}
+
+.coast-card:hover {
+    background-color: white;
+    color: black;
+}
+
+.intro {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.coast-selection {
+    margin-bottom: 50px;
+}
+
+.essential {
+    margin-bottom: 60px;
+}
+
+.ranking-lists {
+    display: flex;
+    gap: 40px;
+}
