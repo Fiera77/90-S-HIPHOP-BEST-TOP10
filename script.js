@@ -1,6 +1,3 @@
-console.log("JavaScript is working!");
-console.log(document.body.id);
-
 const songs1990 = [
     { title: "Public Enemy - Brothers Gonna Work It Out", youtubeUrl: "https://www.youtube.com/watch?v=pL2vVWEgKE0&list=RDpL2vVWEgKE0&start_radio=1" },
     { title: "LL Cool J - Mama Said Knock You Out", youtubeUrl: "https://www.youtube.com/watch?v=vimZj8HW0Kg&list=RDvimZj8HW0Kg&start_radio=1" },
@@ -13,7 +10,6 @@ const songs1990 = [
     { title: "Boogie Down Productions - Love's Gonna Get'cha (Material Love)", youtubeUrl: "https://www.youtube.com/watch?v=4NACMjwR5DE&list=RD4NACMjwR5DE&start_radio=1" },
     { title: "Poor Righteous Teachers - Rock Dis Funky Joint", youtubeUrl: "https://www.youtube.com/watch?v=gfMURCgM3GY&list=RDgfMURCgM3GY&start_radio=1" }
 ];
-
 
 const songs1991 = [
     { title: "Geto Boys - Mind Playing Tricks on Me", youtubeUrl: "https://www.youtube.com/watch?v=IJtHdkyo0hc&list=RDIJtHdkyo0hc&start_radio=1" },
@@ -261,6 +257,31 @@ const westSongs1999 = [
     { title: "MC Eiht - Thicker Than Water", youtubeUrl: "https://www.youtube.com/watch?v=j4DQ0WQaV6g&list=RDj4DQ0WQaV6g&start_radio=1" },
     { title: "Peanut Butter Wolf - Run the Line", youtubeUrl: "https://www.youtube.com/watch?v=dg_rqRExTjA&list=RDdg_rqRExTjA&start_radio=1" },
 ];
+
+const allSongs = [
+    ...songs1990,
+    ...songs1991,
+    ...songs1992,
+    ...songs1993,
+    ...songs1994,
+    ...songs1995,
+    ...songs1996,
+    ...songs1997,
+    ...songs1998,
+    ...songs1999,
+
+    ...westSongs1990,
+    ...westSongs1991,
+    ...westSongs1992,
+    ...westSongs1993,
+    ...westSongs1994,
+    ...westSongs1995,
+    ...westSongs1996,
+    ...westSongs1997,
+    ...westSongs1998,
+    ...westSongs1999
+];
+
 function showRanking(year, songs) {
     ranking.innerHTML = `
         <h2>${year} TOP 10</h2>
@@ -295,12 +316,7 @@ const button1997 = document.getElementById("year-1997");
 const button1998 = document.getElementById("year-1998");
 const button1999 = document.getElementById("year-1999");
 const yearButtons = document.querySelectorAll(".years button");
-console.log(yearButtons);
 const player = document.getElementById("player");
-
-console.log(player);
-
-console.log(button1990);
 
 yearButtons.forEach(function (button) {
     button.addEventListener("click", function () {
@@ -309,82 +325,102 @@ yearButtons.forEach(function (button) {
     });
 });
 
-button1990.addEventListener("click", function () {
-    if (document.body.id === "west-page") {
-        showRanking(1990, westSongs1990);
-    } else {
-        showRanking(1990, songs1990);
-    }
-});
+if (button1990) {
 
-button1991.addEventListener("click", function () {
-    if (document.body.id === "west-page") {
-        showRanking(1991, westSongs1991);
-    } else {
-        showRanking(1991, songs1991);
-    }
-});
+    button1990.addEventListener("click", function () {
+        if (document.body.id === "west-page") {
+            showRanking(1990, westSongs1990);
+        } else {
+            showRanking(1990, songs1990);
+        }
+    });
 
-button1992.addEventListener("click", function () {
-    if (document.body.id === "west-page") {
-        showRanking(1992, westSongs1992);
-    } else {
-        showRanking(1992, songs1992);
-    }
-});
+    button1991.addEventListener("click", function () {
+        if (document.body.id === "west-page") {
+            showRanking(1991, westSongs1991);
+        } else {
+            showRanking(1991, songs1991);
+        }
+    });
 
-button1993.addEventListener("click", function () {
-    if (document.body.id === "west-page") {
-        showRanking(1993, westSongs1993);
-    } else {
-        showRanking(1993, songs1993);
-    }
-});
+    button1992.addEventListener("click", function () {
+        if (document.body.id === "west-page") {
+            showRanking(1992, westSongs1992);
+        } else {
+            showRanking(1992, songs1992);
+        }
+    });
 
-button1994.addEventListener("click", function () {
-    if (document.body.id === "west-page") {
-        showRanking(1994, westSongs1994);
-    } else {
-        showRanking(1994, songs1994);
-    }
-});
+    button1993.addEventListener("click", function () {
+        if (document.body.id === "west-page") {
+            showRanking(1993, westSongs1993);
+        } else {
+            showRanking(1993, songs1993);
+        }
+    });
 
-button1995.addEventListener("click", function () {
-    if (document.body.id === "west-page") {
-        showRanking(1995, westSongs1995);
-    } else {
-        showRanking(1995, songs1995);
-    }
-});
+    button1994.addEventListener("click", function () {
+        if (document.body.id === "west-page") {
+            showRanking(1994, westSongs1994);
+        } else {
+            showRanking(1994, songs1994);
+        }
+    });
 
-button1996.addEventListener("click", function () {
-    if (document.body.id === "west-page") {
-        showRanking(1996, westSongs1996);
-    } else {
-        showRanking(1996, songs1996);
-    }       
-});
+    button1995.addEventListener("click", function () {
+        if (document.body.id === "west-page") {
+            showRanking(1995, westSongs1995);
+        } else {
+            showRanking(1995, songs1995);
+        }
+    });
 
-button1997.addEventListener("click", function () {
-    if (document.body.id === "west-page") {
-        showRanking(1997, westSongs1997);
-    } else {
-        showRanking(1997, songs1997);
-    }
-});
+    button1996.addEventListener("click", function () {
+        if (document.body.id === "west-page") {
+            showRanking(1996, westSongs1996);
+        } else {
+            showRanking(1996, songs1996);
+        }
+    });
 
-button1998.addEventListener("click", function () {
-    if (document.body.id === "west-page") {
-        showRanking(1998, westSongs1998);
-    } else {
-        showRanking(1998, songs1998);
-    }
-});
+    button1997.addEventListener("click", function () {
+        if (document.body.id === "west-page") {
+            showRanking(1997, westSongs1997);
+        } else {
+            showRanking(1997, songs1997);
+        }
+    });
 
-button1999.addEventListener("click", function () {
-    if (document.body.id === "west-page") {
-        showRanking(1999, westSongs1999);
-    } else {
-        showRanking(1999, songs1999);
+    button1998.addEventListener("click", function () {
+        if (document.body.id === "west-page") {
+            showRanking(1998, westSongs1998);
+        } else {
+            showRanking(1998, songs1998);
+        }
+    });
+
+    button1999.addEventListener("click", function () {
+        if (document.body.id === "west-page") {
+            showRanking(1999, westSongs1999);
+        } else {
+            showRanking(1999, songs1999);
+        }
+    });
+}
+
+const rankingItems = document.querySelectorAll(".ranking-coast li");
+
+rankingItems.forEach(function (item) {
+    const title = item.textContent.trim();
+    const song = allSongs.find(function (song) {
+        return song.title === title;
+    });
+
+    if (song) {
+        item.innerHTML = `
+        <a href="${song.youtubeUrl}" target="_blank">
+            ${title}
+        </a>
+    `;
     }
 });

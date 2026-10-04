@@ -1,6 +1,7 @@
 body {
     background-color: black;
     color: white;
+    margin: 40px;
 }
 
 a {
@@ -50,7 +51,7 @@ h1 {
 .coast-card {
     border: 2px solid white;
     padding: 30px;
-    width: 180px;
+    flex: 1;
 }
 
 .coast-card:hover {
@@ -74,4 +75,38 @@ h1 {
 .ranking-lists {
     display: flex;
     gap: 40px;
+}
+
+nav {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+main {
+    max-width: 1000px;
+}
+
+.about-section {
+    margin-bottom: 50px;
+}
+
+@media (max-width: 700px) {
+    .coast-selection {
+        flex-direction: column;
+    }
+
+
+    .ranking-lists {
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 50px;
+    }
+
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
 }
