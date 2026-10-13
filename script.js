@@ -212,7 +212,7 @@ const westSongs1996 = [
     { title: "Xzibit - Paparazzi", youtubeUrl: "https://www.youtube.com/watch?v=g5xJBKVGTGs&list=RDg5xJBKVGTGs&start_radio=1" },
     { title: "E-40 feat. Too $hort & K-Ci - Rapper's Ball", youtubeUrl: "https://www.youtube.com/watch?v=aqkxWMxaBOU&list=RDaqkxWMxaBOU&start_radio=1" },
     { title: "Too $hort feat. Erick Sermon - Buy You Some", youtubeUrl: "https://www.youtube.com/watch?v=xzDXxSG2syQ&list=RDxzDXxSG2syQ&start_radio=1" },
-    { title: "as Kass - Nature of the Threat", youtubeUrl: "https://www.youtube.com/watch?v=DrC_m2rfJX4&list=RDDrC_m2rfJX4&start_radio=1" },
+    { title: "Ras Kass - Nature of the Threat", youtubeUrl: "https://www.youtube.com/watch?v=DrC_m2rfJX4&list=RDDrC_m2rfJX4&start_radio=1" },
     { title: "Snoop Doggy Dogg - Snoop's Upside Ya Head", youtubeUrl: "https://www.youtube.com/watch?v=WVHyg8iug5c&list=RDWVHyg8iug5c&start_radio=1" },
     { title: "Tha Dogg Pound feat. Snoop Doggy Dogg - New York, New York", youtubeUrl: "https://www.youtube.com/watch?v=fskQ3sqorys&list=RDfskQ3sqorys&start_radio=1" },
     { title: "Dr. Octagon - Blue Flowers", youtubeUrl: "https://www.youtube.com/watch?v=V9VYzNUXGDA&list=RDV9VYzNUXGDA&start_radio=1" },
@@ -250,7 +250,7 @@ const westSongs1999 = [
     { title: "Snoop Dogg feat. Xzibit & Nate Dogg - Bitch Please", youtubeUrl: "https://www.youtube.com/watch?v=qbBvH2WaBZg&list=RDqbBvH2WaBZg&start_radio=1" },
     { title: "Kurupt - Callin' Out Names", youtubeUrl: "https://www.youtube.com/watch?v=z2YLzQc165w&list=RDz2YLzQc165w&start_radio=1" },
     { title: "N.W.A - Chin Check", youtubeUrl: "https://www.youtube.com/watch?v=5m9y6p_2Rg0&list=RD5m9y6p_2Rg0&start_radio=1" },
-    { title: "Lootpack - When I'm on Damic", youtubeUrl: "https://www.youtube.com/watch?v=gxWIALONoh8&list=RDgxWIALONoh8&start_radio=1" },
+    { title: "Lootpack - Whenimondamic", youtubeUrl: "https://www.youtube.com/watch?v=gxWIALONoh8&list=RDgxWIALONoh8&start_radio=1" },
     { title: "Blackalicious - Deception", youtubeUrl: "https://www.youtube.com/watch?v=6kX2fs0soYg&list=RD6kX2fs0soYg&start_radio=1" },
     { title: "Quasimoto - Microphone Mathematics", youtubeUrl: "https://www.youtube.com/watch?v=P7R8NTfarRA&list=RDP7R8NTfarRA&start_radio=1" },
     { title: "E-40 - Earl That's Yo' Life", youtubeUrl: "https://www.youtube.com/watch?v=3IubThI5fQw&list=RD3IubThI5fQw&start_radio=1" },
@@ -282,145 +282,68 @@ const allSongs = [
     ...westSongs1999
 ];
 
+const songCollections = {
+    east: [songs1990, songs1991, songs1992, songs1993, songs1994,
+        songs1995, songs1996, songs1997, songs1998, songs1999],
+    west: [westSongs1990, westSongs1991, westSongs1992, westSongs1993, westSongs1994,
+        westSongs1995, westSongs1996, westSongs1997, westSongs1998, westSongs1999]
+};
+
+function createSongLink(song) {
+    const link = document.createElement("a");
+    link.href = song.youtubeUrl;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = song.title;
+    return link;
+}
+
 function showRanking(year, songs) {
-    ranking.innerHTML = `
-        <h2>${year} TOP 10</h2>
-    `;
+    const ranking = document.getElementById("ranking");
+    if (!ranking || !Array.isArray(songs)) return;
 
-    for (let i = 0; i < songs.length; i++) {
-        ranking.innerHTML += `
-            <p>
-                ${i + 1}.
-                <a href="${songs[i].youtubeUrl}" target="_blank">
-                    ${songs[i].title}
-                </a>
-            </p>
-        `;
+    const heading = document.createElement("h2");
+    heading.textContent = `${year} TOP 10`;
+    const list = document.createElement("ol");
+    for (const song of songs) {
+        const item = document.createElement("li");
+        item.append(createSongLink(song));
+        list.append(item);
     }
+    ranking.replaceChildren(heading, list);
 }
 
-function removeActive() {
-    yearButtons.forEach(function (button) {
-        button.classList.remove("active");
-    });
-}
-
-const button1990 = document.getElementById("year-1990");
-const button1991 = document.getElementById("year-1991");
-const button1992 = document.getElementById("year-1992");
-const button1993 = document.getElementById("year-1993");
-const button1994 = document.getElementById("year-1994");
-const button1995 = document.getElementById("year-1995");
-const button1996 = document.getElementById("year-1996");
-const button1997 = document.getElementById("year-1997");
-const button1998 = document.getElementById("year-1998");
-const button1999 = document.getElementById("year-1999");
 const yearButtons = document.querySelectorAll(".years button");
-const player = document.getElementById("player");
+const coast = document.body.id === "west-page" ? "west" : "east";
 
 yearButtons.forEach(function (button) {
+    button.setAttribute("aria-pressed", "false");
     button.addEventListener("click", function () {
-        removeActive();
-        button.classList.add("active");
+        const year = Number(button.id.replace("year-", ""));
+        const songs = songCollections[coast][year - 1990];
+        if (!songs) return;
+        yearButtons.forEach(function (yearButton) {
+            const selected = yearButton === button;
+            yearButton.classList.toggle("active", selected);
+            yearButton.setAttribute("aria-pressed", String(selected));
+        });
+        showRanking(year, songs);
     });
 });
 
-if (button1990) {
+// The Essential list contains one selection outside the yearly Top 10 lists.
+const essentialSongs = [
+    ...allSongs,
+    {
+        title: "Public Enemy - Welcome to the Terrordome",
+        youtubeUrl: "https://www.youtube.com/watch?v=m5t7n-EeE1o"
+    }
+];
 
-    button1990.addEventListener("click", function () {
-        if (document.body.id === "west-page") {
-            showRanking(1990, westSongs1990);
-        } else {
-            showRanking(1990, songs1990);
-        }
-    });
-
-    button1991.addEventListener("click", function () {
-        if (document.body.id === "west-page") {
-            showRanking(1991, westSongs1991);
-        } else {
-            showRanking(1991, songs1991);
-        }
-    });
-
-    button1992.addEventListener("click", function () {
-        if (document.body.id === "west-page") {
-            showRanking(1992, westSongs1992);
-        } else {
-            showRanking(1992, songs1992);
-        }
-    });
-
-    button1993.addEventListener("click", function () {
-        if (document.body.id === "west-page") {
-            showRanking(1993, westSongs1993);
-        } else {
-            showRanking(1993, songs1993);
-        }
-    });
-
-    button1994.addEventListener("click", function () {
-        if (document.body.id === "west-page") {
-            showRanking(1994, westSongs1994);
-        } else {
-            showRanking(1994, songs1994);
-        }
-    });
-
-    button1995.addEventListener("click", function () {
-        if (document.body.id === "west-page") {
-            showRanking(1995, westSongs1995);
-        } else {
-            showRanking(1995, songs1995);
-        }
-    });
-
-    button1996.addEventListener("click", function () {
-        if (document.body.id === "west-page") {
-            showRanking(1996, westSongs1996);
-        } else {
-            showRanking(1996, songs1996);
-        }
-    });
-
-    button1997.addEventListener("click", function () {
-        if (document.body.id === "west-page") {
-            showRanking(1997, westSongs1997);
-        } else {
-            showRanking(1997, songs1997);
-        }
-    });
-
-    button1998.addEventListener("click", function () {
-        if (document.body.id === "west-page") {
-            showRanking(1998, westSongs1998);
-        } else {
-            showRanking(1998, songs1998);
-        }
-    });
-
-    button1999.addEventListener("click", function () {
-        if (document.body.id === "west-page") {
-            showRanking(1999, westSongs1999);
-        } else {
-            showRanking(1999, songs1999);
-        }
-    });
-}
-
-const rankingItems = document.querySelectorAll(".ranking-coast li");
-
-rankingItems.forEach(function (item) {
+document.querySelectorAll(".ranking-coast li").forEach(function (item) {
     const title = item.textContent.trim();
-    const song = allSongs.find(function (song) {
+    const song = essentialSongs.find(function (song) {
         return song.title === title;
     });
-
-    if (song) {
-        item.innerHTML = `
-        <a href="${song.youtubeUrl}" target="_blank">
-            ${title}
-        </a>
-    `;
-    }
+    if (song) item.replaceChildren(createSongLink(song));
 });
